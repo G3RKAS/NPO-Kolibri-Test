@@ -10,6 +10,7 @@ Worker::Worker(WorkInfo WorkingInfo, QObject *parent)
     FinishedFiles = 0;
 
     timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &Worker::Start);
 }
 
 Worker::~Worker(){
@@ -52,7 +53,6 @@ void Worker::StartProccesing(QStringList& FilesList)
 
     if (WorkingInfo.WorkType == 1)
     {
-        connect(timer, &QTimer::timeout, this, &Worker::Start);
         timer->start(WorkingInfo.TimerTime * 1000);
         emit finished_cycle();
     }
